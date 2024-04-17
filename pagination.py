@@ -1,23 +1,38 @@
 def pagination(
     current_page: int, total_pages: int, boundaries: int, around: int
 ) -> str:
-    """I assumed that boundary can't be less 1.
-    Because usually pagination always show the first and the last pages"""
+    if not all(
+        isinstance(x, int)
+        for x in [current_page, total_pages, boundaries, around]
+    ):
+        raise ValueError("All values must be integers")
+
+    # I assumed that boundary can't be less 1.
+    # Because usually pagination always show the first and the last pages
     if current_page < 1 or total_pages < 1 or boundaries < 1:
-        raise ValueError("current_page, total_pages, boundaries must be greater that 0")
+        raise ValueError(
+            "current_page, total_pages, boundaries must be int, greater that 0"
+        )
     if around < 0:
         raise ValueError("amount must be positive int")
 
     pages = list(range(1, total_pages + 1))
+
     # Made boundaries
     start_boundary = pages[:boundaries]
     end_boundary = pages[-boundaries:]
+
     # Add around pages for current page
-    start_around = 0 if (current_page - 1 - around) < 1 else current_page - 1 - around
+    start_around = (
+        0 if (current_page - 1 - around) < 1 else current_page - 1 - around
+    )
     end_around = (
-        total_pages if current_page + around > total_pages else current_page + around
+        total_pages
+        if current_page + around > total_pages
+        else current_page + around
     )
     current_around = pages[start_around:end_around]
+
     # Made array only with visible pages
     visible = sorted(set(start_boundary + current_around + end_boundary))
 

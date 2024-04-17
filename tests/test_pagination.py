@@ -92,3 +92,19 @@ def test_pagination_raises_value_error(
 ):
     with pytest.raises(ValueError):
         pagination(current_page, total_pages, boundaries, around)
+
+
+@pytest.mark.parametrize(
+    "current_page, total_pages, boundaries, around",
+    [
+        (0.1, 10, 2, 1),
+        (4, "0", 2, 1),
+        (4, 10, (0, 1), 1),
+        (4, 10, 2, [1, 3]),
+    ],
+)
+def test_pagination_raises_value_error(
+    current_page, total_pages, boundaries, around
+):
+    with pytest.raises(ValueError, match="All values must be integers"):
+        pagination(current_page, total_pages, boundaries, around)
