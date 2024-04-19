@@ -56,6 +56,4 @@ def pagination(
 
 
 if __name__ == "__main__":
-    # pagination(current_page=5, total_pages=300000000, boundaries=0, around=3)
-
-    pagination(current_page=4, total_pages=10, boundaries=2, around=1)
+    pagination(current_page=5, total_pages=300000000, boundaries=3, around=3)
