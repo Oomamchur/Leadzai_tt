@@ -20,7 +20,9 @@ def pagination(
             total_pages - page for page in range(boundaries - 1, -1, -1)
         ]
     else:
-        start_boundary = end_boundary = [page for page in range(1, total_pages + 1)]
+        start_boundary = end_boundary = [
+            page for page in range(1, total_pages + 1)
+        ]
 
     # Add around pages for current page
     start_around = 1 if (current_page - around) < 1 else current_page - around
